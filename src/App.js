@@ -7,10 +7,11 @@ import CatFact from "./components/CatFact";
 function App() 
 {
   const [data, setData] = useState([]);
-
+  const [active,setActive] = useState(true)
   
-  var countryArray = [];
+  
   function apicall(count) {
+    var countryArray = [];
    
     Axios.get("https://catfact.ninja/fact")
       .then((response) => {
@@ -23,19 +24,13 @@ function App()
         
       
         setData(countryArray);
-       
+        // console.log("data&&&&&&&&&&&&&&&&",data)
       })
       .catch((error) => {
         console.log(error);
       });
 
-         return(
-            <>
-            <h1>
-                {data.fact}
-            </h1>
-            </>
-          )
+        //  return countryArray
   }
 
   // setData(countryArray);
@@ -46,19 +41,39 @@ function App()
     var count = 10;
     for (var i = 0; i < count; i++) {
       apicall(count);
-        console.log("count=====>",i)
-
-      // setData(countryArray);
+      //   console.log("count=====>",i)
+      //   console.log("previous data countryArray ==>",d)
+      // //   if (count ===4)
+      // // setData(d); 
+      // console.log("data===>************************************",data)
     }
   }, []);
 
-     console.log("data===>",data)
+  // useEffect(() => {
+  //   setData(countryArray); 
+  // },[active])
+
+   
   return (
-    <div className="App">
-      {data.map((link) => (
-        <li >{link.value}</li>
-      ))}  
-    </div>
+    <>
+
+    {/* <button
+    onClick={setActive(false)}>
+      button
+    </button> */}
+    {
+      // console.log();
+      // console.log("???",data.value)
+      data.map((link) => (
+            <li key={link.toString()}>{link.value}</li>
+          ))
+    }
+    </>
+    // <div className="App">
+    //   {data.map((link) => (
+    //     <li key={link.toString()}>{link.value}</li>
+    //   ))}  
+    // </div>
   );
 }
 
